@@ -44,19 +44,20 @@ git :add => "."
 git :commit => "-m 'generated cucumber'"
 
 
-compass_command = "compass --rails -f blueprint . --css-dir=public/stylesheets/compiled --sass-dir=app/stylesheets "
-# Require compass during plugin loading
-file 'vendor/plugins/compass/init.rb', <<-CODE
-# This is here to make sure that the right version of sass gets loaded (haml 2.2) by the compass requires.
-require 'compass'
-CODE
+unless haml_compass.nil?
+  compass_command = "compass --rails -f blueprint . --css-dir=public/stylesheets/compiled --sass-dir=app/stylesheets "
+  # Require compass during plugin loading
+  file 'vendor/plugins/compass/init.rb', <<-CODE
+  # This is here to make sure that the right version of sass gets loaded (haml 2.2) by the compass requires.
+  require 'compass'
+  CODE
 
-# integrate it!
-run "haml --rails ."
-run compass_command
-git :add => "."
-git :commit => "-m 'installed compass '"
-
+  # integrate it!
+  run "haml --rails ."
+  run compass_command
+  git :add => "."
+  git :commit => "-m 'installed compass '"
+end
 
 rake "gems:unpack"
 git :add => "."
