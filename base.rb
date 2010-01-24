@@ -24,10 +24,13 @@ gem "cucumber"
 gem "cucumber-rails", :lib => false
 
 gem "authlogic"
-gem "binarylogic-searchlogic", :lib => 'searchlogic', :source  => 'http://gems.github.com'
+gem "searchlogic", :lib => 'searchlogic'
 
-gem "haml", :lib => "haml", :version => ">=2.2.0"
-gem "chriseppstein-compass", :source => "http://gems.github.com/", :lib => "compass"
+if yes?("Do you want to use haml and compass?")
+	gem "haml", :lib => "haml", :version => ">=2.2.0"
+	gem "chriseppstein-compass", :source => "http://gems.github.com/", :lib => "compass"
+	haml_compass = true
+end
 
 rake("gems:install", :sudo => true)
 
